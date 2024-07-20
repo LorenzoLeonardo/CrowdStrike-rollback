@@ -1,34 +1,34 @@
 @echo off
 setlocal
 
-:: Comprobar si se ejecuta en modo seguro
+:: Check if it is running in safe mode
 reg query "HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot" >nul 2>&1
 if %errorlevel% neq 0 (
-    echo El sistema no está en modo seguro. Por favor, reinicia en modo seguro o en el entorno de recuperacion de Windows.
+    echo The system is not in safe mode. Please reboot into safe mode or Windows recovery environment.
     exit /b
 )
 
-:: Ruta al directorio de CrowdStrike
+:: Path to CrowdStrike directory
 set "directoryPath=C:\Windows\System32\drivers\CrowdStrike"
 
-:: Verificar si el directorio existe
+:: Check if the directory exists
 if exist "%directoryPath%" (
-    :: Buscar y eliminar el archivo que coincide con el patrón
+    :: Find and delete the file that matches the pattern
     for %%F in ("%directoryPath%\C-00000291*.sys") do (
         del /f C:\Windows\System32\drivers\CrowdStrike\C-00000291*.sys
         ren C:\Windows\System32\drivers\CrowdStrike C:\Windows\System32\drivers\CrowdStrike.old
-        echo Archivo eliminado exitosamente!!!
+        echo File deleted successfully!!!
     )
     
-    :: Comprobar si se eliminaron archivos
+    :: Check if files were deleted
     if errorlevel 1 (
-        echo No se encontraron archivos que coincidan con el patrón C-00000291*.sys
+        echo No files found matching pattern C-00000291*.sys
     )
 ) else (
-    echo El directorio %directoryPath% no existe.
+    echo The directory %directoryPath% doesn't exist.
 )
 
-echo retire el pendrive, para reiniciar el sistema oprima enter
+echo remove the pendrive, to reboot the system press enter
 pause
-:: Reiniciar el sistema
+:: Reboot the system
 shutdown /r /f /t 0

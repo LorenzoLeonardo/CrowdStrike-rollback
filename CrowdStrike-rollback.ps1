@@ -1,32 +1,32 @@
-# Comprobar si se ejecuta en modo seguro
+# Check if it is running in safe mode
 function Test-SafeMode {
     $regkey = Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SafeBoot" -ErrorAction SilentlyContinue
     return $regkey -ne $null
 }
 
 if (-not (Test-SafeMode)) {
-    Write-Host "El sistema no está en modo seguro. Por favor, reinicia en modo seguro o en el entorno de recuperación de Windows." -ForegroundColor Red
+    Write-Host "The system is not in safe mode. Please reboot into safe mode or Windows recovery environment." -ForegroundColor Red
     exit
 }
 
-# Ruta al directorio de CrowdStrike
+# Path to CrowdStrike directory
 $directoryPath = "C:\Windows\System32\drivers\CrowdStrike"
 
-# Verificar si el directorio existe
+# Check if the directory exists
 if (Test-Path -Path $directoryPath) {
-    # Buscar y eliminar el archivo que coincide con el patrón
+    # Find and delete the file that matches the pattern
     $files = Get-ChildItem -Path $directoryPath -Filter "C-00000291*.sys"
     if ($files.Count -gt 0) {
         foreach ($file in $files) {
             Remove-Item -Path $file.FullName -Force
-            Write-Host "Archivo eliminado: $($file.FullName)" -ForegroundColor Green
+            Write-Host "Deleted file: $($file.FullName)" -ForegroundColor Green
         }
     } else {
-        Write-Host "No se encontraron archivos que coincidan con el patrón C-00000291*.sys" -ForegroundColor Yellow
+        Write-Host "No files found matching pattern C-00000291*.sys" -ForegroundColor Yellow
     }
 } else {
-    Write-Host "El directorio $directoryPath no existe." -ForegroundColor Red
+    Write-Host "The directory $directoryPath does not exist." -ForegroundColor Red
 }
 
-# Reiniciar el sistema
+# Reboot the system
 Restart-Computer -Force

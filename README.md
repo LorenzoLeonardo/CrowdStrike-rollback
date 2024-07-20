@@ -1,36 +1,37 @@
 # CrowdStrike-rollback
 ## Descripción
-CrowdStrike-rollback.ps1 es un script de PowerShell diseñado para automatizar el proceso de eliminación de un archivo específico relacionado con CrowdStrike que puede estar causando problemas en tu sistema Windows. Este script debe ejecutarse en Modo Seguro o en el Entorno de Recuperación de Windows.
+CrowdStrike-rollback.ps1 is a PowerShell script designed to automate the process of removing a specific CrowdStrike-related file that may be causing problems on your Windows system. This script must be run in Safe Mode or Windows Recovery Environment.
 
-## Problema con CrowdStrike
-CrowdStrike es una solución de seguridad que protege los endpoints contra amenazas. Sin embargo, en algunas situaciones, ciertos archivos de CrowdStrike pueden corromperse o causar problemas que impiden el funcionamiento correcto del sistema. En este caso específico, se debe eliminar un archivo denominado `C-00000291*.sys` en el directorio `C:\Windows\System32\drivers\CrowdStrike` para resolver el problema.
+## Problem with CrowdStrike
+CrowdStrike is a security solution that protects endpoints against threats. However, in some situations, certain CrowdStrike files may become corrupted or cause problems that prevent the system from functioning properly. In this specific case, a file named `C-00000291*.sys` in the `C:\Windows\System32\drivers\CrowdStrike` directory must be deleted to resolve the issue.
 
-## Instrucciones de Uso
+## Instructions for use
 
-### Paso 1: Preparación
-- Asegúrate de tener permisos de administrador en el sistema donde se ejecutará el script.
-- Guarda el script en un archivo llamado `CrowdStrike-rollback.ps1`.
+### Step 1: Preparation
+- Make sure you have administrator permissions on the system where the script will be executed.
+- Save the script in a file called `CrowdStrike-rollback.ps1`.
 
-### Paso 2: Inicio en Modo Seguro
-1. Reinicia el sistema y entra en Modo Seguro o en el Entorno de Recuperación de Windows.
-2. Para entrar en Modo Seguro, mantén presionada la tecla **Shift** mientras haces clic en "Reiniciar" y luego selecciona:
-   - "Solucionar problemas"
-   - "Opciones avanzadas"
-   - "Configuración de inicio"
-   - "Reiniciar"
-   - Después, selecciona la opción para Modo Seguro.
-3. Para entrar en el Entorno de Recuperación de Windows, sigue un proceso similar y selecciona:
-   - "Solucionar problemas"
-   - "Opciones avanzadas"
-   - "Símbolo del sistema".
+### Step 2: Start in Safe Mode
+1. Reboot the system and enter Safe Mode or Windows Recovery Environment.
+2. To enter Safe Mode, hold down the **Shift** key while clicking "Restart" and then select:
+   - "Solve problems"
+   - "Advanced Options"
+   - "Startup Settings"
+   - "Restart"
+   - Next, select the option for Safe Mode.
+3. To enter the Windows Recovery Environment, follow a similar process and select:
+   - "Solve problems"
+   - "Advanced Options"
+   - "Symbol of the system".
 
-### Paso 3: Ejecutar el Script
-1. Abre PowerShell con privilegios de administrador.
-2. Navega al directorio donde se guardó el script.
-3. Ejecuta el script con el siguiente comando:
+### Step 3: Run the Script
+
+1. Open PowerShell with administrator privileges.
+2. Navigate to the directory where the script was saved.
+3. Run the script with the following command:
 
    ```powershell
    .\CrowdStrike-rollback.ps1
    ```
-espero les sirva para por lo menos automatizar el tema en un porcentaje.
+I hope it helps you at least automate the issue by a percentage.
 
